@@ -248,6 +248,53 @@
       return this.saturate(-amount);
     };
 
+    Color.prototype.analogous = function(results, slices) {
+      var h, hsv, hvar, i, me, r, _i, _ref1;
+
+      if (results == null) {
+        results = 5;
+      }
+      if (slices == null) {
+        slices = 18;
+      }
+      me = this;
+      r = [me];
+      hsv = me.hsv();
+      h = hsv[0];
+      hvar = 360 / slices;
+      for (i = _i = 1, _ref1 = results / 2; 1 <= _ref1 ? _i <= _ref1 : _i >= _ref1; i = 1 <= _ref1 ? ++_i : --_i) {
+        hvar *= i;
+        hsv[0] = (h + hvar) % 360;
+        r.push(chroma.hsv(hsv));
+        hsv[0] = (h - hvar) % 360;
+        r.push(chroma.hsv(hsv));
+      }
+      return r;
+    };
+
+    Color.prototype.triad = function() {
+      var me, r, rgb;
+
+      me = this;
+      r = [me];
+      rgb = me.rgb();
+      r.push(chroma.rgb(rgb[2], rgb[0], rgb[1]));
+      r.push(chroma.rgb(rgb[1], rgb[2], rgb[0]));
+      return r;
+    };
+
+    Color.prototype.tetrad = function() {
+      var me, r, rgb;
+
+      me = this;
+      r = [me];
+      rgb = me.rgb();
+      r.push(chroma.rgb(rgb[2], rgb[0], rgb[2]));
+      r.push(chroma.rgb(rgb[2], rgb[1], rgb[0]));
+      r.push(chroma.rgb(rgb[0], rgb[2], rgb[0]));
+      return r;
+    };
+
     return Color;
 
   })();

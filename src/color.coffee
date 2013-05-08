@@ -192,7 +192,36 @@ class Color
     desaturate: (amount=20) ->
         @saturate -amount
 
+    analogous: (results=5,slices=18) ->
+        me = @
+        r = [ me ]
+        hsv = me.hsv()
+        h = hsv[0]
+        hvar = 360 / slices 
+        for i in [1..results/2]
+          hvar *= i
+          hsv[0] = (h + hvar) % 360
+          r.push chroma.hsv hsv
+          hsv[0] = (h - hvar) % 360
+          r.push chroma.hsv hsv
+        r
 
+    triad: () ->
+        me = @
+        r = [ me ]
+        rgb = me.rgb()
+        r.push(chroma.rgb rgb[2],rgb[0],rgb[1])
+        r.push(chroma.rgb rgb[1],rgb[2],rgb[0])
+        r
+
+    tetrad: () ->
+        me = @
+        r = [ me ]
+        rgb = me.rgb()
+        r.push(chroma.rgb rgb[2],rgb[0],rgb[2])
+        r.push(chroma.rgb rgb[2],rgb[1],rgb[0])
+        r.push(chroma.rgb rgb[0],rgb[2],rgb[0])
+        r
 
 hex2rgb = (hex) ->
     if hex.match /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
