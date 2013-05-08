@@ -3,9 +3,9 @@
 Chroma.js is a tiny JavaScript library (8.5kB) for all kinds of color conversions and color scales.
 
 This fork has added the following color scheme APIs.
- triad
- tetrad
- analogous  <-- best effort, no clear docs
+ * triad()
+ * tetrad()
+ * analogous(results=5, variation=18)
 
 
 ### Usage
@@ -44,3 +44,4 @@ Versions prior to 0.4 were released under [GPL](http://www.gnu.org/licenses/gpl-
 ### Known issues
 
 * HSI color conversion (experimental) produces weird results sometimes
+* Analogous Color Scheme is best-effort, there is no clear documentation on exactly how this is to be implemented
